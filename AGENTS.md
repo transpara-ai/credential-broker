@@ -3,7 +3,7 @@ doc_id: CREDENTIAL-BROKER-AGENTS
 title: Credential broker repository instructions
 doc_type: repository-instructions
 status: draft
-version: 0.1.0
+version: 0.1.1
 created: 2026-10-18
 updated: 2026-10-18
 owner: Transpara
@@ -20,6 +20,9 @@ identifiers. Each dispatcher input selects reviewed code; never execute an
 input as a command, URL, repository name, or script path. The protected GitHub
 environment owns configuration and secrets, not this repository or an agent
 host. Document each operation's trust boundary, failure behavior, and cost.
+Never treat a required-reviewer name as proof of Human approval: exclude all
+agent-accessible identities from reviewer users and teams, and prevent
+self-review before adding an environment secret.
 
 Use a task worktree and a pull request; never push directly to `main`. Use
 imperative commit subjects with a lowercase type prefix and end Codex-authored
@@ -33,4 +36,5 @@ runtime behavior immediately before it runs. Never print or commit a secret.
 
 | Version | Date | Change |
 | --- | --- | --- |
+| 0.1.1 | 2026-10-18 | Exclude agent identities from deployment review. |
 | 0.1.0 | 2026-10-18 | Draft source, review, and live-effect boundaries. |

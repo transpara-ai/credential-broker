@@ -46,7 +46,13 @@ def verify(token_url: str, repository: str, username: str, password: str) -> Non
         or endpoint.fragment
     ):
         raise ValueError("invalid Harbor endpoint")
-    if not REPOSITORY_PATTERN.fullmatch(repository) or not username or not password:
+    if (
+        not REPOSITORY_PATTERN.fullmatch(repository)
+        or not username
+        or not password
+        or ":" in username
+        or any(ord(character) < 32 or ord(character) == 127 for character in username + password)
+    ):
         raise ValueError("invalid Harbor configuration")
 
     scope = f"repository:{repository}:pull,push"

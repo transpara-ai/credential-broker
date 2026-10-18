@@ -3,7 +3,7 @@ doc_id: CREDENTIAL-BROKER-README
 title: Transpara credential broker
 doc_type: repository-guide
 status: draft
-version: 0.1.0
+version: 0.1.1
 created: 2026-10-18
 updated: 2026-10-18
 owner: Transpara
@@ -23,8 +23,9 @@ image or deploy anything.
 
 The source is **not operational yet**. Do not populate its environment secrets
 until `main` has TLC protection, the `credential-broker` environment restricts
-deployments to protected `main` and requires a Human reviewer, and agent-accessible
-GitHub identities cannot administer those controls or bypass `main`. The
+deployments to protected `main`, requires an off-agent Human reviewer, and
+prevents self-review. Agent-accessible GitHub identities must be unable to
+administer those controls, bypass `main`, or approve deployments. The
 [design and activation checklist](docs/design.md) record the required readbacks.
 
 Run `make verify` for the local tests. CI runs the same target for pull requests
@@ -37,4 +38,5 @@ an issue, a pull request, or chat.
 
 | Version | Date | Change |
 | --- | --- | --- |
+| 0.1.1 | 2026-10-18 | Require off-agent approval and prevent self-review before activation. |
 | 0.1.0 | 2026-10-18 | Draft the public broker scaffold and its activation contract. |

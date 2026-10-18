@@ -76,6 +76,15 @@ class HarborAuthCheckTests(unittest.TestCase):
             with self.subTest(url=url, repository=repository), self.assertRaises(ValueError):
                 broker.verify(url, repository, "test-user", "test-password")
 
+    def test_rejects_malformed_basic_auth_credential(self) -> None:
+        for username, password in (
+            ("test:user", "test-password"),
+            ("test-user", "test\npassword"),
+            ("test-user", ""),
+        ):
+            with self.subTest(username=username), self.assertRaises(ValueError):
+                broker.verify(TOKEN_URL, REPOSITORY, username, password)
+
     def test_failure_output_never_contains_credential(self) -> None:
         output = io.StringIO()
         with (
